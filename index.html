@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>乐鱼体育 | 一处关于站点与可信的叙述</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #f7f5f2;
+            color: #2c2b28;
+            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ---- 深色头图 (hero) ---- */
+        .hero {
+            background: linear-gradient(145deg, #1a1b1f 0%, #2f2e33 100%);
+            color: #eae7e1;
+            padding: 3.8rem 2rem 3.2rem 2rem;
+            text-align: center;
+            border-bottom: 3px solid #d4b68a;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: repeating-linear-gradient(90deg, #d4b68a 0px, #d4b68a 12px, transparent 12px, transparent 24px);
+            opacity: 0.4;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero .sub {
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: #beb7ad;
+            max-width: 480px;
+            margin: 0.6rem auto 0;
+            border-top: 1px solid #4b4844;
+            padding-top: 0.9rem;
+            display: inline-block;
+        }
+
+        /* ---- 正文区域 (浅色) ---- */
+        .container {
+            max-width: 820px;
+            margin: 2.5rem auto 3.5rem;
+            padding: 0 1.8rem;
+            flex: 1;
+        }
+
+        .intro-card {
+            background: #ffffff;
+            border-radius: 28px 28px 20px 20px;
+            padding: 2.2rem 2rem 2rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03), 0 2px 6px rgba(0,0,0,0.02);
+            margin-bottom: 2.6rem;
+        }
+
+        .intro-card .first-line {
+            font-size: 1.12rem;
+            color: #5b5a56;
+            border-left: 4px solid #d4b68a;
+            padding-left: 1.2rem;
+            margin-bottom: 1.4rem;
+            font-style: italic;
+        }
+
+        .intro-card p {
+            margin-bottom: 1.2rem;
+            font-size: 1rem;
+        }
+
+        .intro-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight-link {
+            color: #9f7e5c;
+            font-weight: 500;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .highlight-link:hover {
+            border-bottom-color: #9f7e5c;
+            color: #7c6245;
+        }
+
+        /* 特点列表 —— 温和卡片式 */
+        .feature-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin: 2rem 0 1.8rem;
+        }
+
+        .feature-item {
+            background: #fefcf9;
+            flex: 1 1 200px;
+            border-radius: 24px;
+            padding: 1.4rem 1.2rem;
+            border: 1px solid #ece7e0;
+            transition: box-shadow 0.2s;
+        }
+
+        .feature-item:hover {
+            box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+        }
+
+        .feature-item .num {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #b09a80;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.5rem;
+            background: #f2ece4;
+            padding: 0.1rem 0.7rem;
+            border-radius: 30px;
+        }
+
+        .feature-item h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+            color: #35322e;
+        }
+
+        .feature-item p {
+            font-size: 0.92rem;
+            color: #5c5954;
+            margin-bottom: 0;
+        }
+
+        /* 场景 / 提示 段落 */
+        .scene-note {
+            background: #f3efe9;
+            border-radius: 40px 16px 40px 16px;
+            padding: 1.6rem 1.8rem;
+            margin: 2rem 0 1.6rem;
+        }
+
+        .scene-note p {
+            margin-bottom: 0.6rem;
+            font-size: 0.98rem;
+        }
+
+        .scene-note p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-mini {
+            margin: 2rem 0 1rem;
+            border-top: 1px dashed #d9d2c8;
+            padding-top: 1.8rem;
+        }
+
+        .faq-mini details {
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .faq-mini summary {
+            font-weight: 500;
+            cursor: pointer;
+            color: #3f3c37;
+            padding: 0.2rem 0;
+        }
+
+        .faq-mini summary::-webkit-details-marker {
+            color: #b8a68b;
+        }
+
+        .faq-mini details p {
+            margin: 0.5rem 0 0.2rem 1.2rem;
+            color: #5f5b54;
+        }
+
+        /* ---- 温和结尾 ---- */
+        .gentle-footer {
+            margin-top: 2.2rem;
+            padding: 1.6rem 0.5rem 0.8rem;
+            text-align: center;
+            border-top: 1px solid #e3ddd4;
+            font-size: 0.9rem;
+            color: #7b7770;
+        }
+
+        .gentle-footer a {
+            color: #9f7e5c;
+            text-decoration: none;
+            border-bottom: 1px dotted #cbbaa8;
+        }
+
+        .gentle-footer a:hover {
+            color: #7c6245;
+            border-bottom-style: solid;
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 1.9rem;
+            }
+            .container {
+                padding: 0 1.2rem;
+                margin-top: 1.8rem;
+            }
+            .intro-card {
+                padding: 1.5rem 1.2rem;
+            }
+            .feature-grid {
+                gap: 0.9rem;
+            }
+            .feature-item {
+                flex: 1 1 100%;
+            }
+            .scene-note {
+                padding: 1.2rem;
+                border-radius: 24px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .hero {
+                padding: 2.8rem 1rem 2.4rem;
+            }
+            .hero .sub {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 深色头图 -->
+    <header class="hero">
+        <h1>乐鱼体育</h1>
+        <div class="sub">一处关于站点与可信的叙述</div>
+    </header>
+
+    <!-- 浅色正文区域 -->
+    <div class="container">
+
+        <div class="intro-card">
+            <div class="first-line">很多时候，我们只是想找一个可以安静了解的地方。</div>
+
+            <p>
+                这件事说起来也简单。前阵子朋友发来一个链接，说是他最近常去的站点，名字叫 
+                <a href="https://app-main-leyusports.com.cn" class="highlight-link">乐鱼体育</a>。
+                起初我并没有太在意，因为类似的名字并不算少见。但后来几次聊天里他又提起，
+                言语间带着一种「你可以自己看看」的语气，于是我便抽空浏览了一下。
+            </p>
+
+            <p>
+                打开页面之后，第一印象是干净。没有铺天盖地的弹窗，也没有那种急切的催促感。
+                信息排布得比较清晰，至少对于第一次访问的人来说，不至于迷失在一堆跳转里。
+                我花了一点时间翻看不同板块，逐渐理解为什么朋友会愿意反复回来——
+                有些东西不需要多么花哨，可靠和持续比什么都重要。
+            </p>
+
+            <p>
+                当然，每个人的标准不同。但如果你也恰好对体育类的内容有兴趣，
+                不妨把 <a href="https://app-main-leyusports.com.cn" class="highlight-link">乐鱼体育</a> 
+                当作一个安静的坐标，自己感受它的节奏。
+            </p>
+        </div>
+
+        <!-- 特点列表 (卡片) -->
+        <div class="feature-grid">
+            <div class="feature-item">
+                <span class="num">· 01 ·</span>
+                <h3>界面与导航</h3>
+                <p>没有复杂的分支，主要功能路径清晰，适合快速定位。</p>
+            </div>
+            <div class="feature-item">
+                <span class="num">· 02 ·</span>
+                <h3>内容侧重</h3>
+                <p>围绕体育信息展开，更新有一定规律，不杂乱。</p>
+            </div>
+            <div class="feature-item">
+                <span class="num">· 03 ·</span>
+                <h3>访问体验</h3>
+                <p>页面加载稳定，没有过量广告干扰，浏览比较顺畅。</p>
+            </div>
+        </div>
+
+        <!-- 场景式叙述 + 温和提示 -->
+        <div class="scene-note">
+            <p>
+                有时候我们并不需要被说服，只需要一个契机去验证。我自己的习惯是，
+                先观察一个站点是不是长期维护，再看它是否愿意把信息放在明处。
+                从这个角度看，<a href="https://app-main-leyusports.com.cn" class="highlight-link">乐鱼体育</a>
+                算是做得比较自然的。
+            </p>
+            <p>
+                另外，如果你打算深入了解，建议花几分钟浏览几个不同板块，
+                而不是只看首页。很多细节藏在二级页面里。
+            </p>
+        </div>
+
+        <!-- 简短的 FAQ 摘要 (非完整问答, 仅作补充) -->
+        <div class="faq-mini">
+            <details>
+                <summary>这个站点适合哪些人？</summary>
+                <p>对体育资讯有一定兴趣，且希望界面相对简洁、不被过度打扰的用户。</p>
+            </details>
+            <details>
+                <summary>第一次访问需要注意什么？</summary>
+                <p>网络环境稳定即可。页面不需要注册也能浏览大部分内容，可以慢慢翻看。</p>
+            </details>
+        </div>
+
+        <!-- 温和结尾 -->
+        <div class="gentle-footer">
+            <p>
+                以上只是一点个人的浏览手记。任何站点最终还是要自己看过才作数。<br>
+                你可以从这里开始：<a href="https://app-main-leyusports.com.cn">乐鱼体育</a>
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>
