@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>再次访问 · 壹号娱乐 知识库</title>
+    <style>
+        /* reset & base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #fbe9e7 0%, #fce4d6 50%, #f7d9c4 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem 1.5rem;
+            line-height: 1.65;
+            color: #3e2c1f;
+        }
+
+        .page-container {
+            max-width: 920px;
+            width: 100%;
+            background: rgba(255, 248, 240, 0.82);
+            backdrop-filter: blur(3px);
+            border-radius: 40px;
+            box-shadow: 0 20px 40px -12px rgba(160, 100, 60, 0.25);
+            padding: 2.8rem 2.5rem;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 235, 220, 0.6);
+        }
+
+        /* hero 区域 – 简短叙述入口感 */
+        .hero-note {
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 2px dashed #e7cdb5;
+        }
+        .hero-note h1 {
+            font-size: 2.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: #5e3a2a;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hero-note h1 small {
+            font-size: 1rem;
+            font-weight: 340;
+            color: #93735c;
+            margin-left: 0.3rem;
+        }
+        .hero-note p {
+            font-size: 1.12rem;
+            color: #6b4d3a;
+            max-width: 75%;
+            margin-top: 0.2rem;
+        }
+        @media (max-width: 600px) {
+            .hero-note p {
+                max-width: 100%;
+            }
+            .page-container {
+                padding: 1.8rem 1.2rem;
+            }
+        }
+
+        /* 目录感布局：两列 / 自适应 */
+        .directory-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem 2rem;
+            margin: 2rem 0 1.8rem;
+        }
+        @media (max-width: 680px) {
+            .directory-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        .card {
+            background: #fffcf7;
+            border-radius: 28px;
+            padding: 1.6rem 1.6rem 1.8rem 1.6rem;
+            box-shadow: 0 6px 16px rgba(150, 90, 55, 0.08);
+            transition: all 0.15s;
+            border: 1px solid #faeee6;
+        }
+        .card:hover {
+            box-shadow: 0 10px 24px -6px rgba(140, 80, 45, 0.12);
+            transform: translateY(-2px);
+            border-color: #ebd6c6;
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #4e3324;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid #eddccc;
+            display: inline-block;
+        }
+        .card p, .card li {
+            color: #3f3026;
+            font-size: 0.97rem;
+        }
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0.3rem;
+        }
+        .card li {
+            padding: 0.35rem 0 0.25rem 1.2rem;
+            position: relative;
+        }
+        .card li::before {
+            content: "·";
+            position: absolute;
+            left: 0.1rem;
+            color: #b28a72;
+            font-weight: 700;
+            font-size: 1.4rem;
+            line-height: 1;
+        }
+
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        .soft-link {
+            color: #7f5b45;
+            background: #f2e4d9;
+            padding: 0.15rem 0.65rem;
+            border-radius: 40px;
+            font-weight: 460;
+            text-decoration: none;
+            transition: background 0.15s, color 0.15s;
+            white-space: nowrap;
+        }
+        .soft-link:hover {
+            background: #e3cdbc;
+            color: #3d281c;
+        }
+
+        /* 提示区 + 相关信息区 (合并成灵活卡片) */
+        .notice-area {
+            background: #f9efe7;
+            border-radius: 28px;
+            padding: 1.5rem 1.8rem;
+            margin: 1.2rem 0 1.8rem;
+            border-left: 6px solid #dbb8a2;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.75rem 1.5rem;
+        }
+        .notice-area .label {
+            font-weight: 460;
+            color: #4b3325;
+            background: #ede0d4;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+        }
+        .notice-area p {
+            flex: 1;
+            min-width: 200px;
+            color: #3e2c1f;
+            margin: 0;
+        }
+
+        .faq-mini {
+            background: #fffcf7;
+            border-radius: 24px;
+            padding: 1.4rem 1.8rem 1.6rem;
+            margin: 2rem 0 0.8rem;
+            border: 1px solid #edd9cb;
+        }
+        .faq-mini details {
+            margin: 0.6rem 0;
+            padding: 0.3rem 0;
+            border-bottom: 1px solid #efe2d7;
+        }
+        .faq-mini details:last-of-type {
+            border-bottom: none;
+        }
+        .faq-mini summary {
+            font-weight: 480;
+            color: #4c3427;
+            cursor: pointer;
+            padding: 0.2rem 0;
+            font-size: 0.98rem;
+            transition: color 0.1s;
+        }
+        .faq-mini summary:hover {
+            color: #7a543c;
+        }
+        .faq-mini details p {
+            margin: 0.4rem 0 0.1rem 1rem;
+            color: #5b3f2f;
+            font-size: 0.92rem;
+        }
+
+        .footnote-line {
+            margin-top: 2.2rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid #e6d4c6;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.92rem;
+        }
+        .footnote-line span {
+            color: #78604e;
+        }
+
+        .button-like-link {
+            display: inline-block;
+            background: #e7d4c4;
+            color: #3a281d;
+            padding: 0.4rem 1.3rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 470;
+            font-size: 0.95rem;
+            border: 1px solid #dcc1ad;
+            transition: background 0.15s, border 0.15s;
+        }
+        .button-like-link:hover {
+            background: #dcc1ad;
+            border-color: #b28a6e;
+        }
+
+        /* 响应式微调 */
+        @media (max-width: 480px) {
+            .hero-note h1 {
+                font-size: 1.7rem;
+                flex-wrap: wrap;
+            }
+            .notice-area {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.6rem;
+            }
+            .footnote-line {
+                flex-direction: column;
+                gap: 0.8rem;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-container">
+
+    <!-- hero 叙述 -->
+    <div class="hero-note">
+        <h1>
+            📋 壹号娱乐
+            <small>· 再次光临</small>
+        </h1>
+        <p>你或许曾路过这里，又或许只是初次想起。一个安静的入口，一份可以反复翻阅的笔记。</p>
+    </div>
+
+    <!-- 目录感网格 : 说明区 + 收藏关注 -->
+    <div class="directory-grid">
+        <!-- 卡片：关于 / 说明区 -->
+        <div class="card">
+            <h2>⟡ 说明</h2>
+            <p>这里不是首页的替代，而是一个侧记——整理与<a href="https://homes-1haoentertainment.com" class="soft-link">壹号娱乐</a>相关的零散线索，方便回头再看一眼。没有复杂层级，只有「记录卡片」本身。</p>
+            <ul>
+                <li>页面可收藏，适合零碎时间翻阅</li>
+                <li>内容围绕「再次访问」脉络展开</li>
+                <li>不追踪、不推送，仅为知识库形态</li>
+            </ul>
+        </div>
+
+        <!-- 卡片：收藏 / 持续关注 -->
+        <div class="card">
+            <h2>⟡ 收藏·关注</h2>
+            <p>如果想保持联系，不妨把这一页放进书签夹。或者偶尔回来，看看有没有新的片段更新。<br>
+            若想直接回到主站，下方随时可以连结到 <a href="https://homes-1haoentertainment.com" style="text-decoration: underline; text-underline-offset: 4px; color: #7c5a43;">壹号娱乐</a> —— 一个安静的存在。</p>
+            <div style="margin-top: 0.8rem;">
+                <span class="button-like-link" style="cursor: default;">🔖 添加到收藏夹</span>
+                <span style="display: inline-block; margin-left: 0.6rem; color: #9b7b65;">| 或直接拖拽标签</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 提示区 -->
+    <div class="notice-area">
+        <span class="label">💡 提示</span>
+        <p>再次访问时，页面可能略有变化 —— 内容结构会随每次生成而调整。如果你更喜欢固定的入口，建议将主站单独收藏。</p>
+    </div>
+
+    <!-- 相关信息区 + FAQ 摘要合并 -->
+    <div class="faq-mini">
+        <h2 style="font-size: 1.15rem; font-weight: 480; color: #4c3325; margin-bottom: 0.6rem;">📌 相关信息 · 简短问答</h2>
+
+        <details>
+            <summary>这个页面和主站是什么关系？</summary>
+            <p>是「知识库入口式」的介绍页，不替代主站，只作为辅助的再次访问界面。每次打开都可能呈现不同的叙述编排。</p>
+        </details>
+        <details>
+            <summary>为什么页面内容会变化？</summary>
+            <p>每次生成时都会调整段落、标题、版式细节和节奏，避免模板感。核心连结不变，但周围的文字会重新组织。</p>
+        </details>
+        <details>
+            <summary>如何最快回到主站？</summary>
+            <p>页面中所有指向「壹号娱乐」的链接都能到达主站。你可以点按任意一个，或者直接使用收藏夹。</p>
+        </details>
+        <details>
+            <summary>我可以把这一页分享给别人吗？</summary>
+            <p>当然可以。它本身就是一个独立的HTML，托管在GitHub Pages，任何人都可以打开、浏览、收藏。</p>
+        </details>
+    </div>
+
+    <!-- 底部 再次叙说 + 链接 -->
+    <div class="footnote-line">
+        <span>⏳ 持续关注 · <a href="https://homes-1haoentertainment.com" style="color: #5f3f2e; text-decoration: underline wavy #d6b8a4 1.5px; text-underline-offset: 6px;">壹号娱乐</a> 安静存在</span>
+        <span style="font-size: 0.88rem; color: #8f715d;">📁 知识库入口 · 版本 2405</span>
+    </div>
+
+    <!-- 隐藏种子字符仅用于变化，不显示 -->
+    <!-- 61e78e5a669134a7 -->
+</div>
+</body>
+</html>
