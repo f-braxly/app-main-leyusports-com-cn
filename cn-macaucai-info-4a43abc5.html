@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>澳门彩 · 知识库介绍页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f2f4f6;
+            color: #1f2a3a;
+            line-height: 1.7;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .page-wrapper {
+            max-width: 1120px;
+            width: 100%;
+        }
+        /* hero 区域 */
+        .hero {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 48px 40px 40px 40px;
+            margin-bottom: 36px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03), 0 2px 6px rgba(0, 0, 0, 0.02);
+            border: 1px solid #e6eaef;
+            transition: box-shadow 0.2s;
+        }
+        .hero:hover {
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.05);
+        }
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #152b3c;
+            margin-bottom: 12px;
+        }
+        .hero .subhead {
+            font-size: 1.05rem;
+            color: #4a5b6e;
+            max-width: 720px;
+            margin-bottom: 24px;
+            border-left: 4px solid #889db3;
+            padding-left: 20px;
+            background: #f5f8fc;
+            border-radius: 0 12px 12px 0;
+            padding: 12px 18px;
+        }
+        .hero .subhead span {
+            display: block;
+            font-size: 0.95rem;
+            margin-top: 6px;
+            color: #3d5a73;
+        }
+
+        /* 卡片网格 — 目录感布局 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 36px;
+        }
+        @media (max-width: 860px) {
+            .card-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 540px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero {
+                padding: 32px 20px;
+            }
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 26px 22px 28px;
+            border: 1px solid #e0e6ed;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.02);
+            transition: box-shadow 0.2s, border-color 0.15s;
+        }
+        .card:hover {
+            border-color: #bcc8d6;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+        }
+        .card .card-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #e8eef5;
+            border-radius: 14px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 14px;
+            color: #2b4a6b;
+        }
+        .card h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1f2f42;
+        }
+        .card p {
+            font-size: 0.93rem;
+            color: #3b4c5e;
+            margin-bottom: 6px;
+        }
+        .card .meta-note {
+            font-size: 0.82rem;
+            color: #657a8f;
+            margin-top: 12px;
+            border-top: 1px dashed #dbe1e9;
+            padding-top: 12px;
+        }
+
+        /* 说明区 + 提示区 双栏 */
+        .info-panel {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 36px;
+            flex-wrap: wrap;
+        }
+        .info-panel > section {
+            flex: 1 1 280px;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 28px 26px;
+            border: 1px solid #e0e6ed;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.02);
+        }
+        .info-panel h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #1b3144;
+        }
+        .info-panel h2 i {
+            font-style: normal;
+            background: #dce5ef;
+            width: 28px;
+            height: 28px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+        .info-panel ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .info-panel ul li {
+            padding: 6px 0 6px 22px;
+            position: relative;
+            font-size: 0.92rem;
+            color: #2c4057;
+        }
+        .info-panel ul li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: #7b91a8;
+        }
+
+        /* 提示区特别 */
+        .tip-box {
+            background: #f9fbfd;
+            border-radius: 14px;
+            padding: 20px 18px;
+            margin-top: 24px;
+            border-left: 5px solid #95abbd;
+        }
+        .tip-box p {
+            font-size: 0.9rem;
+            color: #2b4055;
+            margin-bottom: 4px;
+        }
+
+        /* 相关信息区 (faq 摘要) */
+        .related-area {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 30px 32px 32px;
+            border: 1px solid #e0e6ed;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.02);
+            margin-bottom: 36px;
+        }
+        .related-area h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1b3144;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .related-area h2 span {
+            background: #dce5ef;
+            padding: 0 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            color: #1f3e59;
+        }
+        .faq-item {
+            padding: 14px 0;
+            border-bottom: 1px solid #eaeef4;
+        }
+        .faq-item:last-of-type {
+            border-bottom: none;
+        }
+        .faq-item strong {
+            display: block;
+            font-weight: 600;
+            color: #1f3348;
+            margin-bottom: 4px;
+            font-size: 0.98rem;
+        }
+        .faq-item p {
+            font-size: 0.9rem;
+            color: #3d5369;
+            margin-top: 4px;
+        }
+
+        .site-footer {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #5f748b;
+            padding: 18px 0 6px;
+            border-top: 1px solid #dce2eb;
+            margin-top: 12px;
+        }
+        .site-footer a {
+            color: #2a4b6e;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .site-footer a:hover {
+            text-decoration: underline;
+        }
+        .inline-link {
+            color: #1f4970;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dotted #b3c6db;
+            transition: border 0.15s;
+        }
+        .inline-link:hover {
+            border-bottom: 1px solid #1f4970;
+        }
+        .badge {
+            background: #e2eaf3;
+            border-radius: 30px;
+            padding: 2px 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #2b4e6e;
+            margin-left: 8px;
+            letter-spacing: 0.3px;
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrapper">
+    <!-- hero 区域：定位网站用途 -->
+    <div class="hero">
+        <h1>澳门彩 · 知识服务入口</h1>
+        <div class="subhead">
+            📌 面向希望快速了解平台定位与内容的访问者 —— 我们整理了一份结构化的指引，帮助你判断 <strong>cn-macaucai.com</strong> 是否满足你的需求。
+            <span>基于知识库的入口式设计 · 聚焦信息甄别与主题分类</span>
+        </div>
+        <p style="max-width: 700px; font-size: 0.96rem; color: #3f5770;">
+            无论你是第一次接触「澳门彩」相关资讯，还是想系统梳理已知信息，这里提供的目录框架、说明文档与常见问题摘要都能为你节省时间。 
+            下面三个卡片分别对应平台最常被问起的维度。
+        </p>
+    </div>
+
+    <!-- 卡片网格：目录感，三个维度 -->
+    <div class="card-grid">
+        <div class="card">
+            <div class="card-icon">📋</div>
+            <h3>内容类型索引</h3>
+            <p>涵盖术语解释、规则说明、历史背景与数字文化解析。所有条目均按主题归类，便于按需查阅。</p>
+            <div class="meta-note">↳ 现有 8 个主题分类 · 持续更新</div>
+        </div>
+        <div class="card">
+            <div class="card-icon">🔍</div>
+            <h3>信息识别框架</h3>
+            <p>提供一套基础判断维度，帮助用户区分不同来源的表述差异，减少认知混淆。</p>
+            <div class="meta-note">↳ 包含核对清单与参考来源说明</div>
+        </div>
+        <div class="card">
+            <div class="card-icon">🧩</div>
+            <h3>场景入口</h3>
+            <p>根据常见需求（如快速查询、对比了解、术语学习）推荐对应的内容模块。</p>
+            <div class="meta-note">↳ 适合新访客与中度使用者</div>
+        </div>
+    </div>
+
+    <!-- 说明区 + 提示区（双栏） -->
+    <div class="info-panel">
+        <section>
+            <h2><i>ⓘ</i> 说明区</h2>
+            <p style="font-size: 0.93rem; color: #2a4058; margin-bottom: 12px;">
+                本页面是 <strong>cn-macaucai.com</strong> 的知识库索引，不提供直接投注或博彩功能。网站内容以资料整理与信息科普为主，旨在帮助用户建立更完整的认知框架。
+            </p>
+            <ul>
+                <li>所有资料均标注参考来源或整理日期</li>
+                <li>分类目录支持关键词联想查找</li>
+                <li>不存储用户个人识别信息</li>
+                <li>内容面向成年用户，遵循当地法规</li>
+            </ul>
+            <div style="margin-top: 20px; font-size: 0.9rem; background: #f2f7fd; padding: 12px 14px; border-radius: 14px;">
+                <span style="font-weight: 500;">📎 如果你对某个术语或规则有疑问，可以先查阅对应分类索引。</span>
+            </div>
+        </section>
+        <section>
+            <h2><i>💡</i> 提示区</h2>
+            <div class="tip-box">
+                <p><strong>使用建议</strong> — 利用卡片导航快速定位你感兴趣的主题。部分条目包含延伸阅读链接。</p>
+                <p style="margin-top: 10px;">🔸 优先阅读“内容类型索引”，了解整体结构后再深入具体条目效率更高。</p>
+                <p>🔸 若遇到不确定的表述，可对照“信息识别框架”中的核对点。</p>
+            </div>
+            <div style="margin-top: 18px; font-size: 0.9rem; background: #f3f7fc; border-radius: 14px; padding: 14px;">
+                <span style="font-weight: 500;">⏳ 更新日志</span><br>
+                <span style="color: #4b627a;">最近一次整理：2025-02 · 新增术语对比表</span>
+            </div>
+        </section>
+    </div>
+
+    <!-- 相关信息区：FAQ 摘要风格 -->
+    <div class="related-area">
+        <h2>📘 相关信息 <span>FAQ 摘要</span></h2>
+        <div class="faq-item">
+            <strong>这个网站提供「澳门彩」号码预测或内幕消息吗？</strong>
+            <p>不提供。本网站定位为知识库与信息索引，所有内容均基于公开资料整理，不包含任何预测、保证或诱导性表述。请理性甄别。</p>
+        </div>
+        <div class="faq-item">
+            <strong>我如何快速找到某个术语的解释？</strong>
+            <p>建议先浏览“内容类型索引”卡片中的分类，或直接使用站内搜索（如果可用）。目前每个主题分类下都有条目列表。</p>
+        </div>
+        <div class="faq-item">
+            <strong>资料可靠吗？来源是什么？</strong>
+            <p>每一篇条目都尽量标注参考来源或整理依据，部分基于行业通用规则和历史文献。我们鼓励用户交叉验证。</p>
+        </div>
+        <div style="margin-top: 18px; font-size: 0.9rem; border-top: 1px solid #e3eaf2; padding-top: 20px; color: #2b4f6e;">
+            ⚡ 更多常见问题正在整理中。如果你有具体疑问，可以参照网站分类索引找到对应内容。
+        </div>
+    </div>
+
+    <!-- 合适的链接嵌入（自然句） +  footer -->
+    <div style="background: #ffffff; border-radius: 24px; padding: 24px 28px; border: 1px solid #e0e6ed; box-shadow: 0 3px 10px rgba(0,0,0,0.02); margin-bottom: 24px;">
+        <p style="font-size: 0.95rem; color: #1a334a;">
+            如果你想直接浏览全部资料与分类，可以前往 
+            <a href="https://cn-macaucai.com" class="inline-link">澳门彩</a> 
+            知识库主页，那里提供了更完整的条目列表、筛选功能以及基础术语表。 
+            <span style="display: inline-block; background: #eef3f9; padding: 0 12px; border-radius: 16px; font-size: 0.75rem; color: #1b3c5c; margin-left: 6px;">索引页持续维护</span>
+        </p>
+        <p style="margin-top: 10px; font-size: 0.88rem; color: #3a5a78;">
+            👉 提示：你也可以先使用上方的卡片目录缩小范围，再决定是否需要深入浏览整个 
+            <a href="https://cn-macaucai.com" class="inline-link">澳门彩</a> 站点。
+        </p>
+    </div>
+
+    <div class="site-footer">
+        <p>cn-macaucai.com · 知识库介绍页 · 内容仅供信息参考</p>
+        <p style="margin-top: 4px; color: #6c849e;">本页面为结构化入口，无推荐或引导性质</p>
+    </div>
+</div>
+</body>
+</html>
