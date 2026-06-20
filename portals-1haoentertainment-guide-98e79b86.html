@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>壹号娱乐 · 知识库入口</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f5f7fa;
+            color: #1f2a3e;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ----- 深色头图 ----- */
+        .hero {
+            background: linear-gradient(145deg, #0b1525 0%, #1a2740 100%);
+            padding: 72px 0 56px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            right: -60px;
+            top: -60px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(229, 196, 74, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #f0f4ff;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            display: inline-block;
+            background: linear-gradient(135deg, #f4d06f, #eabe4c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            color: #c8d2e6;
+            font-size: 1.15rem;
+            max-width: 680px;
+            margin-bottom: 36px;
+        }
+
+        .hero-meta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 22px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 60px;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #b5c5e0;
+            font-size: 0.9rem;
+        }
+
+        .hero-meta i {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #eabe4c;
+            border-radius: 50%;
+        }
+
+        /* ----- 正文浅色区 ----- */
+        .main-content {
+            background: #ffffff;
+            padding: 48px 0 60px;
+        }
+
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #13203a;
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
+        }
+
+        .section-title .badge {
+            display: inline-block;
+            background: #eaeef7;
+            padding: 2px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: #3a4b6e;
+            margin-left: 10px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #f8faff;
+            border-radius: 18px;
+            padding: 24px 22px;
+            border: 1px solid #e9eef5;
+            transition: box-shadow 0.2s, transform 0.15s;
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 18px rgba(0, 20, 50, 0.07);
+            transform: translateY(-2px);
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0f203b;
+            margin-bottom: 8px;
+        }
+
+        .card p, .card li {
+            font-size: 0.96rem;
+            color: #2f3e5a;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card ul li::before {
+            content: "· ";
+            color: #b8932e;
+            font-weight: 600;
+        }
+
+        .card ul li {
+            margin-bottom: 6px;
+            padding-left: 0;
+        }
+
+        .highlight-link {
+            color: #b27c2a;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(178, 124, 42, 0.25);
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .highlight-link:hover {
+            color: #8a621f;
+            border-bottom-color: #8a621f;
+        }
+
+        .notice-box {
+            background: #f1f5fe;
+            border-left: 4px solid #d0b06a;
+            padding: 18px 22px;
+            border-radius: 12px;
+            margin: 24px 0 0;
+            font-size: 0.95rem;
+            color: #1f304a;
+        }
+
+        .notice-box strong {
+            color: #a07a2b;
+        }
+
+        .faq-item {
+            margin-bottom: 18px;
+        }
+
+        .faq-item q {
+            font-weight: 600;
+            color: #13203a;
+            font-style: normal;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .faq-item p {
+            margin: 0;
+            color: #344662;
+        }
+
+        .related-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px 20px;
+            margin-top: 12px;
+        }
+
+        .related-links a {
+            color: #3b5175;
+            text-decoration: none;
+            font-size: 0.95rem;
+            border-bottom: 1px dotted #bccee3;
+        }
+
+        .related-links a:hover {
+            color: #a07a2b;
+            border-bottom-color: #a07a2b;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e3e9f2;
+            margin: 44px 0 28px;
+        }
+
+        .footnote {
+            font-size: 0.85rem;
+            color: #6b7d9b;
+            margin-top: 32px;
+            padding-top: 16px;
+            border-top: 1px solid #e3e9f2;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 2.0rem; }
+            .hero p { font-size: 1rem; }
+            .card-grid { grid-template-columns: 1fr; }
+            .section-title { font-size: 1.2rem; }
+            .hero-meta { font-size: 0.8rem; padding: 8px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 深色头图 -->
+<header class="hero">
+    <div class="container">
+        <h1>知识库 · <span>壹号娱乐</span></h1>
+        <p>从定义到延伸，从对照到检索——面向日常信息查询的轻量级入口，整理思路、补充背景、快速定位。</p>
+        <div class="hero-meta">
+            <i></i> 当前版本 · 信息目录 · 持续更新
+        </div>
+    </div>
+</header>
+
+<!-- 正文浅色区 -->
+<main class="main-content">
+    <div class="container">
+
+        <!-- 介绍区：场景与定位 -->
+        <div class="section">
+            <div class="section-title">
+                📘 说明区
+                <span class="badge">定位</span>
+            </div>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>日常查询场景</h3>
+                    <p>当你需要快速了解平台背景、核对基础信息或寻找相关参考时，可将本页作为起始索引。内容侧重事实陈述与结构梳理，不展开过多演绎。</p>
+                </div>
+                <div class="card">
+                    <h3>对照与延伸</h3>
+                    <p>本页集中呈现典型条目与常见对照项，方便横向比较。每个板块均指向更详细的来源，如需深入可跳转至 <a href="https://portals-1haoentertainment.com" class="highlight-link">壹号娱乐</a> 的其他页面。</p>
+                </div>
+                <div class="card">
+                    <h3>信息组织方式</h3>
+                    <p>采用「说明 → 提示 → 相关条目」的目录结构。段落之间有承接，但每个单元亦可独立阅读，适应不同查询习惯。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 特点与子项（卡片方式） -->
+        <div class="section">
+            <div class="section-title">
+                🔍 特点速览
+                <span class="badge">4 项</span>
+            </div>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>结构透明</h3>
+                    <p>每个模块都标注了功能标签，避免信息过载。用户可快速判断当前内容是否匹配需求。</p>
+                </div>
+                <div class="card">
+                    <h3>链接嵌入句</h3>
+                    <p>重要引用会直接以自然语言形式出现，例如在介绍背景时提及 <a href="https://portals-1haoentertainment.com" class="highlight-link">壹号娱乐</a>，并附上上下文，减少机械跳转感。</p>
+                </div>
+                <div class="card">
+                    <h3>跨段落承接</h3>
+                    <p>上一区块末尾会自然引出下一主题。比如说明区的最后一句话会导向提示区的核心注意事项。</p>
+                </div>
+                <div class="card">
+                    <h3>克制叙述</h3>
+                    <p>所有信息均基于可验证的公开描述，不采用夸张措辞或未标明来源的断言，适合作为第一手参考页。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 提示区：使用注意、常见误区 -->
+        <div class="section">
+            <div class="section-title">
+                ⚠️ 提示区
+                <span class="badge">注意</span>
+            </div>
+            <div class="card-grid" style="grid-template-columns: 1fr;">
+                <div class="card" style="border-left: 4px solid #d0b06a;">
+                    <h3>信息时效性</h3>
+                    <p>平台内容与功能可能随运营调整发生变化。本页为静态索引，不保证所有细节实时同步。建议用户结合当前页面与最新公告交叉对照。</p>
+                </div>
+                <div class="card">
+                    <h3>链接与跳转</h3>
+                    <p>本页所有指向 <a href="https://portals-1haoentertainment.com" class="highlight-link">壹号娱乐</a> 的链接均使用自然语句嵌入，未做推广修饰。用户可根据自身需要选择是否进一步浏览。</p>
+                </div>
+                <div class="card">
+                    <h3>术语对照</h3>
+                    <p>部分表述可能涉及特定领域的习惯用词。如对某个概念有疑问，可先在页面内通过目录定位，或借助外部词典核实。</p>
+                </div>
+            </div>
+
+            <div class="notice-box">
+                <strong>🔔 延伸提醒：</strong> 当你在其他资料中看到与「壹号娱乐」相关的条目时，建议优先核对发布时间与来源渠道，避免引用过时信息。本页提供的仅是结构化参考，不构成使用指引。
+            </div>
+        </div>
+
+        <!-- FAQ 摘要 / 相关信息区 -->
+        <div class="section">
+            <div class="section-title">
+                ❓ FAQ 摘要
+                <span class="badge">常见问题</span>
+            </div>
+
+            <div class="faq-item">
+                <q>这个知识库入口主要用来做什么？</q>
+                <p>用于快速查找与 <a href="https://portals-1haoentertainment.com" class="highlight-link">壹号娱乐</a> 相关的关键信息，包括背景介绍、特点归纳、使用提示和延伸阅读方向。不替代完整官网，而是作为索引补充。</p>
+            </div>
+            <div class="faq-item">
+                <q>为什么某些链接直接嵌在句子里？</q>
+                <p>为了降低阅读中断感。将链接作为自然成分融入说明文字，可以让用户在理解上下文的同时自主选择是否点击，避免「点击这里」式的机械交互。</p>
+            </div>
+            <div class="faq-item">
+                <q>页面内容会更新吗？</q>
+                <p>本页为静态 HTML，更新频率较低。如需最新动态，建议直接浏览 <a href="https://portals-1haoentertainment.com" class="highlight-link">壹号娱乐</a> 主站。本页侧重基础框架与稳定条目。</p>
+            </div>
+
+            <hr>
+
+            <div class="section-title" style="margin-bottom: 12px;">
+                📎 相关信息区
+            </div>
+            <div class="related-links">
+                <span>相关方向：</span>
+                <a href="#">平台背景</a>
+                <a href="#">功能对照</a>
+                <a href="#">术语表</a>
+                <a href="#">使用场景</a>
+                <a href="#">常见对照</a>
+            </div>
+
+            <div class="footnote">
+                <span>目录版本：2025.04 · 内容仅作参考</span>
+                <span>主站：<a href="https://portals-1haoentertainment.com" class="highlight-link">壹号娱乐</a></span>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+</body>
+</html>
